@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Confidential</title>
+  <link rel="icon" href="images/icons/icon.png">
+  
+
+  <style>
+    /* Right click Restrict*/
+    body {
+      user-select: none;
+    }
+
+    body ::-webkit-scrollbar {
+      display: none;
+    }  
+    /* Right click Restrict*/
+
+    body {
+
+      font-family: 'Arial', sans-serif;
+
+      background-color: #f6f8fa;
+
+      color: #24292e;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      height: 100vh;
+
+      margin: 0;
+
+    }
+
+
+    .login-container {
+
+      background-color: #fff;
+
+      padding: 20px;
+
+      border-radius: 8px;
+
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+      max-width: 400px;
+
+      width: 100%;
+
+      text-align: center;
+
+    }
+
+
+    #login-form input {
+
+      width: 100%;
+
+      padding: 10px;
+
+      margin: 10px 0;
+
+      box-sizing: border-box;
+
+      background-color: #f6f8fa;
+
+      border: 1px solid #24292e;
+
+      color: #24292e;
+
+    }
+
+
+    #login-form button {
+
+      background-color: #28a745;
+
+      color: #fff;
+
+      padding: 10px;
+
+      border: none;
+
+      border-radius: 4px;
+
+      cursor: pointer;
+
+    }
+
+
+    #login-form button:hover {
+
+      background-color: #218838;
+
+    }
+
+
+    .login-animation {
+
+      display: none;
+
+    }
+
+
+    .access-message {
+
+      margin-top: 20px;
+
+      color: #28a745;
+
+    }
+
+
+    .captcha-container {
+
+      display: none;
+
+      margin-top: 20px;
+
+    }
+
+
+    .captcha-message {
+
+      color: #d73a49;
+
+    }
+
+
+    .captcha-input {
+
+      width: 60px;
+
+      padding: 5px;
+
+      margin-top: 10px;
+
+      text-align: center;
+
+    }
+
+
+    .verified-message {
+
+      color:#28a745;
+
+    }
+    
+
+
+    #black-box {
+
+      display: none;
+
+      background-color: #000;
+
+      height: 100vh;
+
+      width: 100%;
+
+      position: fixed;
+
+      top: 0;
+
+      left: 0;
+
+      z-index: 9999;
+
+      justify-content: center;
+
+      align-items: center;
+
+    }
+
+
+    #black-box img {
+
+      max-width: 100%;
+
+    }
+
+
+    #loading-animation {
+
+      display: none;
+
+      margin-top: 20px;
+
+    }
+
+  </style>
+  
+
+</head>
+
+
+<body>
+
+
+  <div class="login-container">
+
+    <h2>Who are You ❓</h2>
+
+    <form id="login-form">
+
+      <input type="text" id="username" placeholder="Username">
+
+      <input type="password" id="password" placeholder="Password">
+
+      <button type="button" onclick="login()">Login</button>
+
+      <div class="login-animation" id="loading-animation">
+
+        <img src="https://media.tenor.com/jfmI0j5FcpAAAAAC/loading-wtf.gif" alt="Loading" width="30">
+
+        <p>Logging in...</p>
+
+      </div>
+
+      <div class="access-message" id="access-message"></div>
+
+    </form>
+
+
+    <div class="captcha-container" id="captcha-container">
+
+      <p class="captcha-message">Are you a Spyer 🧐?</p>
+
+      <p>What is <span id="captcha-question"></span>?</p>
+
+      <input type="text" id="captcha-input" class="captcha-input" placeholder="Answer">
+
+      <button type="button" onclick="checkCaptcha()">Verify</button>
+
+    </div>
+
+
+    <p class="verified-message" id="verified-message"></p>
+
+  </div>
+
+
+  <div id="black-box">
+
+    <img src="https://media.tenor.com/dTP4cRnO9bEAAAAC/sweating-nervous.gif" alt="Meme">
+
+  </div>
+
+
+  <script>
+    
+    function login() {
+
+      var username = document.getElementById('username').value;
+
+      var password = document.getElementById('password').value;
+
+
+      // Simulating server-side validation
+
+      if (username === 'imnikhil' && password === 'neeti@143') {
+
+        document.getElementById('access-message').innerText = 'Access Granted ✔️';
+
+        document.querySelector('.login-animation').style.display = 'flex';
+
+        setTimeout(function () {
+
+          document.querySelector('.login-animation').style.display = 'none';
+
+          window.location.href = 'home.html'; // Redirect to home screen
+
+        }, 10000); // Show loading animation for 10 seconds
+
+      } else {
+
+        document.getElementById('access-message').innerText = 'Access Denied ❌';
+
+        document.querySelector('.login-container').style.backgroundColor = 'transparent';
+
+        document.getElementById('black-box').style.display = 'flex';
+
+        setTimeout(function () {
+
+          document.getElementById('black-box').style.display = 'none';
+
+          document.getElementById('access-message').innerText = '';
+
+          showCaptcha();
+
+        }, 2000); // Show Access Denied for 2 seconds
+
+      }
+
+    }
+
+
+    function showCaptcha() {
+
+      document.getElementById('login-form').style.display = 'none'; // Hide login form
+
+      document.getElementById('captcha-container').style.display = 'block';
+
+      var num1 = Math.floor(Math.random() * 10) + 1;
+
+      var num2 = Math.floor(Math.random() * 10) + 1;
+
+      document.getElementById('captcha-question').innerText = num1 + ' + ' + num2;
+
+    }
+
+
+    function checkCaptcha() {
+
+      var answer = document.getElementById('captcha-input').value;
+
+      var num1 = parseInt(document.getElementById('captcha-question').innerText.split(' ')[0]);
+
+      var num2 = parseInt(document.getElementById('captcha-question').innerText.split(' ')[2]);
+
+      var correctAnswer = num1 + num2;
+
+
+      if (parseInt(answer) === correctAnswer) {
+
+        document.getElementById('verified-message').innerText = 'Verified';
+
+        setTimeout(function () {
+
+          window.location.reload(); // Refresh the page after verification
+
+        }, 2000);
+
+      } else {
+
+        document.getElementById('verified-message').innerText = 'Incorrect answer. Try again.';
+
+      }
+
+    }
+
+  </script>
+  <!--right click -->
+  <script>
+    document.addEventListener('contextmenu', event => event.preventDefault());
+  </script>
+  <!--right click -->
+  <style>
+  /* Right click Restrict*/
+    body {
+      user-select: none;
+    }
+
+    body ::-webkit-scrollbar {
+      display: none;
+    }  
+    /* Right click Restrict*/
+  </style>
+           
+
+</body>
+
+
+</html>
