@@ -1,48 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="/css/home.css" rel="stylesheet"/>
-  <title>Confidential</title>
-  <link rel="icon" href="images/icons/icon.png">
-</head>
-<!--right click -->
-<script>
-  document.addEventListener('contextmenu', event => event.preventDefault());
-</script>
-<!--right click -->
-<style>
-/* Right click Restrict*/
-  body {
-    user-select: none;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker</title>
+    <link rel="icon" href="images/icons/icon.png">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
 
-  body ::-webkit-scrollbar {
-    display: none;
-  }  
-  /* Right click Restrict*/
-</style>
+        #fullscreenContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        #fullscreenContainer img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
 <body>
-  <main>
-    <img src="images/main.jpg" alt="profile" class="profile-image" />
-    <h1 class="profile-name">Rusher</h1>
-    <p class="summary">🚀Front-End Developer | 🐉 Gamer  | 🎥 YouTuber </p>
-    <section class="about">
-      <span class="about__title">More about me:</span>
-      <ul class="about__list">
-        <li><a href="index.html#portfolio">Portfolio</a></li>
-        <li><a href="index.html#about">Blog</a></li>
-      </ul>
-    </section>
-    <ul class="list-links">
-      <li><a href="https://github.com/slydragonn" target="_blank">Drive</a></li>
-      <li><a href="https://nikhilslove.w3spaces.com/" target="_blank">Love Calculator</a></li>
-      <li><a href="https://www.youtube.com/channel/UCzTcqvA5oGFZA8RQH3kMlkQ" target="_blank">Do You Love Me ?</a></li>
-      <li><a href="https://www.instagram.com/sly_dragonn/" target="_blank">...</a></li>
-      <li><a href="https://www.instagram.com/sly_dragonn/" target="_blank">\....</a></li>
-    </ul>
-  </main>
+    <div id="fullscreenContainer">
+        <img id="slideshowImage" src="" alt="Slideshow Image">
+    </div>
+
+    <script>
+        const images = [
+            '/images/hacker/1.gif', // Replace with your image paths
+            '/images/hacker/2.gif',
+            '/images/hacker/3.gif',
+            '/images/hacker/4.gif'
+        ];
+        let currentIndex = 0;
+
+        function startSlideshow() {
+            const slideshowImage = document.getElementById('slideshowImage');
+
+            setInterval(() => {
+                slideshowImage.src = images[currentIndex];
+                currentIndex = (currentIndex + 1) % images.length;
+            }, 3500);
+
+            // Initialize with the first image
+            slideshowImage.src = images[currentIndex];
+        }
+
+        // Start the slideshow on page load
+        window.onload = startSlideshow;
+    </script>
 </body>
 </html>
